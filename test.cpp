@@ -23,7 +23,7 @@ Type stringToNum(const string& str)
 void getPressureFromFile(string infileName) {
 	ifstream infile;	//创建文件输入流
 	ofstream ofile;               //定义输出文件
-	ofile.open("H:\\myfile.txt");     //作为输出文件打开
+	ofile.open("E:\\pythonStudy\\resoures\\randomPressure.txt");     //作为输出文件打开
 	infile.open(infileName.data());
 	string lineStr;
 	string input_result;	//临时存储用字符串
@@ -31,12 +31,13 @@ void getPressureFromFile(string infileName) {
 		cout << "输入文件打开失败！" << endl;
 		return;
 	}
-	int lineCnt = 0;      //行统计
-	char* sInputfile = "H:\\EpanetSimulation\\Debug\\data\\ky8.inp";
-	char* Reportfile = "H:\\EpanetSimulation\\Debug\\data\\Reportfile.rpt";
+	int lineCnt = 0;      //行统计?（模拟的次数共1000次）
+	char* sInputfile = "D:\\keyanshuju\\2019-10-29\\Net3.inp";
+	char* Reportfile = "E:\\pythonStudy\\resoures\\Reportfile.rpt";
 	ENopen(sInputfile, Reportfile, "");
 	int i, NumNodes;
 	float pressure;
+	//float DEMAND;
 	long t;
 	ENopenH();
 	while (getline(infile, lineStr)) {		//lineStr代表每次模拟的节点需水量数据
@@ -58,13 +59,14 @@ void getPressureFromFile(string infileName) {
 		ENinitH(0);
 		/* 单一时段运行 */
 		ENrunH(&t);
-		cout << "----------------" << "lineCnt=" << lineCnt << "-------------" << endl;
+		//cout << "----------------" << "lineCnt=" << lineCnt << "-------------" << endl;
 		/* 检索结果并将结果存入数组中 */
 		for ( i = 0; i < NumNodes; i++)
 		{
 			ENgetnodevalue(i + 1, EN_PRESSURE, &pressure);	
 			temp[i]= pressure;
-			//cout << temp[i] << endl;
+			//ENgetnodevalue(i + 1, EN_DEMAND, &DEMAND);
+			//cout <<"----"<<i+1<<"节点的需水量：------"<<DEMAND << endl;
 		}
 		/*将数组中的数据写入文件*/
 		for (int i = 0; i < NumNodes; i++)
@@ -88,7 +90,7 @@ void getPressureFromFile(string infileName) {
 
 int main() {
 
-	getPressureFromFile("D:/keyanshuju/Random_demand.txt");
-	
+	getPressureFromFile("E:\\pythonStudy\\resoures\\random_demand.txt");
+
 	return 0;
 }
