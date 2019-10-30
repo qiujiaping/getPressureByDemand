@@ -80,8 +80,8 @@ void getPressureFromFile(string infileName) {
 			}
 		}
 		ofile << endl;
-		if (lineCnt == 999)break;	//动态开启
-		lineCnt++;
+		//if (lineCnt == 999)break;	//动态开启
+		//lineCnt++;
 	}
 	ENcloseH();
 	infile.close();                                     //关闭文件流
